@@ -1,0 +1,14 @@
+module.exports = {
+    "auth": {
+        "algorithms": ["{{jwt algorithm}}"],
+        "key": "{{jwt key}}"
+    },
+    "imgur": {
+        "auth-key": "Bearer {{imgur access token}}",
+        "client-key": "Client-ID {{imgur client id}}",
+        "apiUrl": "https://api.imgur.com/3" //current imgur api path @ 2018/7
+    },
+    "iwaa": {
+        "createUrl": "{{shorten url create api end point}}"
+    }
+}

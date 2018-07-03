@@ -48,3 +48,22 @@ exports.images = (req, res) => {
         break;
     }
 };
+
+exports.iwaa = (req, res) => {
+    switch(req.method){
+    case 'GET':
+        const imagesUrl = new RegExp('^\/[a-zA-Z0-9]+\.[a-zA-Z]+$');
+        if(imagesUrl.test(req.path)){
+            res.writeHead(301,
+                {Location: `https://i.imgur.com${req.path}`}
+            );
+            res.end();
+        }else{
+            res.status(404).send('Not found');
+        }
+        break;
+    default:
+        res.status(404).send('Not found');
+        break;
+    }
+};

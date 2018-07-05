@@ -32,7 +32,7 @@ Deploy image API
 
 ## API
 
-**Authorization**: For all of API below, you need to add 'watchout-auth' to http headers.
+**Authorization**: For all of API of "Album" and "Image", you need to add access token named 'watchout-auth' to http headers. **The token determines whose album or image be operated.**
 
 Example:
 ```json=
@@ -65,7 +65,7 @@ Response example
 }
 ```
   
-- GET /albums
+- GET /album
   
 Get album information
   
@@ -171,7 +171,7 @@ Response example
   
 Not open now.
   
-### Images
+### Image
 
 - POST /image
   
@@ -198,6 +198,6 @@ Response example
 ```js
 {
     "success": true,
-    "image": "image url"
+    "image": "https://i.waa.tw/test.jpg"
 }
 ```

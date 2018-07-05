@@ -44,7 +44,7 @@ exports.getAlubumImages = function(res, authToken){
                 }else{
                     res.json({
                         success: true,
-                        album: imagesInfo.data
+                        images: imagesInfo.data
                     })
                 }
             })
@@ -89,7 +89,7 @@ exports.createAlbum = function(res, authToken, title){
                 title: title,
                 privacy: 'hidden'
             }
-            imgur.requestImgur('POST', '/album', 'auth-key', data, function(err, data){
+            imgur.requestImgur('POST', '/album', 'auth-key', data, function(err, albumInfo){
                 if(err){
                     res.json({
                         success: false,
@@ -98,7 +98,7 @@ exports.createAlbum = function(res, authToken, title){
                 }else{
                     res.json({
                         success: true,
-                        album: data
+                        album: albumInfo.data.id
                     })
                 }
             })

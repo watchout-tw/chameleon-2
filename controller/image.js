@@ -1,36 +1,35 @@
+const config = require('../config/config.js')
 const imgur = require('../service/imgur.js')
-const iwaa = require('../service/iwaa.js')
+const auth = require('../service/auth.js')
 
 exports.uploadImage = function(res, authToken, body){
     console.log('image called', authToken, body)
-    let imageInfo = {
-        image: body.image,
-        title: body.title,
-        album: body.album,
-        description: body.description
-    }
-    imgur.requestImgur('POST', '/image', 'auth-key', imageInfo, function(err, data){
+    auth.auth(authToken, function(err, user){
         if(err){
             return res.json({
                 success: false,
                 message: err
             })
         }else{
-            iwaa.getWaaUrl(data.data.link, function(error, url){
-                if (error) {
+            let imageInfo = {
+                image: body.image,
+                title: body.title,
+                album: user.albumID,
+                description: body.description
+            }
+            imgur.requestImgur('POST', '/image', 'auth-key', imageInfo, function(err, data){
+                if(err){
                     return res.json({
                         success: false,
-                        message: error
+                        message: err
                     })
                 }else{
-                    console.log('update end', data.data, url)
-                    res.json({
+                    return res.json({
                         success: true,
-                        image: url
+                        image: data.data.link.replace(config.imgur.imageUrl, config.iwaa.url)
                     })
                 }
             })
-
         }
     })
 }

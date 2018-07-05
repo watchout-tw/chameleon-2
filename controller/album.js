@@ -1,44 +1,7 @@
 const auth = require('../service/auth.js')
 const imgur = require('../service/imgur.js')
 
-const getIdFromUrl = function(url){
-    let pattern = url.split('/')
-    return pattern[1]
-}
-
-exports.getAlubumDetail = function(res, url){
-    imgur.requestImgur('GET', `/album/${getIdFromUrl(url)}`, 'client-key', null, function(err, data){
-        if(err){
-            return res.json({
-                success: false,
-                message: err
-            })
-        }else{
-            res.json({
-                success: true,
-                message: data
-            })
-        }
-    })
-}
-
-exports.getAlubumImages = function(res, url){
-    imgur.requestImgur('GET', `/album/${getIdFromUrl(url)}/images`, 'client-key', null, function(err, data){
-        if(err){
-          return res.json({
-            success: false,
-            message: err
-          })
-        }else{
-          res.json({
-            success: true,
-            message: data
-          })
-        }
-    })
-}
-
-exports.deleteAlbum = function(res, url, authToken){
+exports.getAlubumDetail = function(res, authToken){
     auth.auth(authToken, function(err, user){
         if(err){
             return res.json({
@@ -46,10 +9,58 @@ exports.deleteAlbum = function(res, url, authToken){
                 message: err
             })
         }else{
-            if(user.personaID > 2){
-                return res.status(404).send('Not found');
-            }
-            imgur.requestImgur('DELETE', `/album/${user.imgur}`, 'auth-key', null, function(err, data){
+            imgur.requestImgur('GET', `/album/${user.albumID}`, 'client-key', null, function(err, albumInfo){
+                if(err){
+                    res.json({
+                        success: false,
+                        message: err
+                    })
+                }else{
+                    res.json({
+                        success: true,
+                        album: albumInfo.data
+                    })
+                }
+            })
+        }
+    })
+}
+
+exports.getAlubumImages = function(res, authToken){
+
+    auth.auth(authToken, function(err, user){
+        if(err){
+            return res.json({
+                success: false,
+                message: err
+            })
+        }else{
+            imgur.requestImgur('GET', `/album/${user.albumID}/images`, 'client-key', null, function(err, imagesInfo){
+                if(err){
+                    res.json({
+                        success: false,
+                        message: err
+                    })
+                }else{
+                    res.json({
+                        success: true,
+                        album: imagesInfo.data
+                    })
+                }
+            })
+        }
+    })
+}
+
+exports.deleteAlbum = function(res, authToken, hash){
+    auth.authAsAdmin(authToken, function(err, user){
+        if(err){
+            return res.json({
+                success: false,
+                message: err
+            })
+        }else{
+            imgur.requestImgur('DELETE', `/album/${hash}`, 'auth-key', null, function(err, data){
                 if(err){
                     res.json({
                         success: false,
@@ -66,8 +77,8 @@ exports.deleteAlbum = function(res, url, authToken){
     })
 }
 
-exports.createAlbum = function(res, authToken){
-    auth.auth(authToken, function(err, user){
+exports.createAlbum = function(res, authToken, title){
+    auth.authAsAdmin(authToken, function(err, admin){
         if(err){
             return res.json({
                 success: false,
@@ -75,7 +86,7 @@ exports.createAlbum = function(res, authToken){
             })
         }else{
             let data = {
-                title: user.handle,
+                title: title,
                 privacy: 'hidden'
             }
             imgur.requestImgur('POST', '/album', 'auth-key', data, function(err, data){

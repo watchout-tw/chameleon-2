@@ -1,14 +1,18 @@
 module.exports = {
     "auth": {
         "algorithms": ["{{jwt algorithm}}"],
-        "key": "{{jwt key}}"
+        "key": "{{jwt key}}",
+        "name": "{{jwt key name in http headers}}",
+        "adminUrl": "{{where should I get admin information}}",
+        "adminKeyName": "{{admin key name from adminUrl}}"
     },
     "imgur": {
         "auth-key": "Bearer {{imgur access token}}",
         "client-key": "Client-ID {{imgur client id}}",
-        "apiUrl": "https://api.imgur.com/3" //current imgur api path @ 2018/7
+        "apiUrl": "https://api.imgur.com/3", //current imgur api path @ 2018/7
+        "imageUrl": "https://i.imgur.com" //current imgur image path @ 2018/7
     },
     "iwaa": {
-        "createUrl": "{{shorten url create api end point}}"
+        "createUrl": "{{shorten url of image}}"
     }
 }

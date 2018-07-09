@@ -66,7 +66,7 @@ headers: {
 Input example
 ```json
 {
-	"title": "watchout001",
+    "title": "watchout001"
 }
 ```
   

@@ -10,14 +10,14 @@ exports.requestImgur = function(method, url, authKey, data, callback){
         }
     }
     if(method != 'GET'){
-        requestConfig.formData = data
+        requestConfig.json = data;
     }
     request(requestConfig, function(err, resp, body){
         if(err){
             console.log('err', err)
             callback(err)
         }else{
-            callback(null, JSON.parse(body))
+            callback(null, body)
         }
     })
 }

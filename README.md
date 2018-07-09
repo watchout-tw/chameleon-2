@@ -56,6 +56,18 @@ headers: {
 - POST /album
  
  Create an imgur album with title as user's handle. Only admin token can access this api.
+ 
+ Input
+
+| Key | Type | Description |
+| --- | --- | --- |
+| `title` | string | Album title. It is usually user's handle.|
+
+Input example
+```json
+{
+	"title": "watchout001",
+}
   
 Response example
 ```json

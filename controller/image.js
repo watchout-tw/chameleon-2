@@ -14,7 +14,7 @@ exports.uploadImage = function(res, authToken, body){
             let imageInfo = {
                 image: body.image,
                 title: body.title,
-                album: user.albumID,
+                album: user.albumID || '',
                 description: body.description
             }
             imgur.requestImgur('POST', '/image', 'auth-key', imageInfo, function(err, data){

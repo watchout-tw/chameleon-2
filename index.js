@@ -34,18 +34,26 @@ exports.album = (req, res) => {
 };
 
 exports.image = (req, res) => {
-    const authToken = req.headers[config.auth.name];
-    switch(req.method){
-        case 'POST':
-            if(!req.path){
-                image.uploadImage(res, authToken, req.body)
-            }else{
-                res.status(404).send('Not found');
-            }
-            break;
-        default:
-            res.status(404).send('Not found');
+  res.set('Access-Control-Allow-Origin', "*")
+  const authToken = req.headers[config.auth.name];
+  switch(req.method) {
+    case 'OPTIONS': {
+      // Send response to OPTIONS requests
+      res.set('Access-Control-Allow-Methods', 'GET, POST');
+      res.set('Access-Control-Allow-Headers', 'Content-Type, watchout-auth');
+      res.set('Access-Control-Max-Age', '3600');
+      res.status(204).send('');
     }
+    case 'POST':
+      if(req.path === '/') {
+        image.uploadImage(res, authToken, req.body)
+      } else {
+        res.status(404).send('Not found');
+      }
+      break;
+    default:
+      res.status(404).send('Not found');
+  }
 };
 
 exports.iwaa = (req, res) => {

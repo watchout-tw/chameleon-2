@@ -26,7 +26,8 @@ exports.uploadImage = function(res, authToken, body) {
         } else {
           return res.json({
             success: true,
-            image: data.data.link.replace(config.imgur.imageUrl, config.iwaa.url)
+            image: data.data.link.replace(config.imgur.imageUrl, config.iwaa.url),
+            data
           })
         }
       })

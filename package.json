@@ -12,6 +12,11 @@
     "node": ">=4.3.2"
   },
   "scripts": {
+    "deploy-image-dev": "gcloud functions deploy image-dev --runtime=nodejs12 --region=us-central1 --trigger-http",
+    "deploy-image": "gcloud functions deploy image --runtime=nodejs12 --region=us-central1 --trigger-http",
+    "deploy-album-dev": "gcloud functions deploy album-dev --runtime=nodejs12 --region=us-central1 --trigger-http",
+    "deploy-album": "gcloud functions deploy album --runtime=nodejs12 --region=us-central1 --trigger-http",
+    "deploy-iwaa": "gcloud functions deploy iwaa --runtime=nodejs12 --region=us-central1 --trigger-http",
     "lint": "repo-tools lint",
     "pretest": "npm run lint",
     "e2e-test": "export FUNCTIONS_CMD='gcloud functions' && sh test/updateFunctions.sh && BASE_URL=\"https://$GCP_REGION-$GCLOUD_PROJECT.cloudfunctions.net/\" ava -T 20s --verbose test/*.test.js",

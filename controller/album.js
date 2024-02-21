@@ -59,7 +59,7 @@ exports.deleteAlbum = function(res, authToken, hash) {
         message: err
       })
     } else {
-      imgur.requestImgur('DELETE', `/album/${hash}`, 'auth-key', null, function(err, data) {
+      imgur.requestImgur('DELETE', `/album/${hash}`, 'client-key', null, function(err, data) {
         if(err) {
           res.json({
             success: false,
@@ -88,7 +88,7 @@ exports.createAlbum = function(res, authToken, title) {
         title: title,
         privacy: 'hidden'
       }
-      imgur.requestImgur('POST', '/album', 'auth-key', data, function(err, albumInfo) {
+      imgur.requestImgur('POST', '/album', 'client-key', data, function(err, albumInfo) {
         if(err) {
           res.json({
             success: false,

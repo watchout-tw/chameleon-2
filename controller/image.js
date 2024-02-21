@@ -1,3 +1,4 @@
+const FormData = require('form-data')
 const config = require('../config/config.js')
 const imgur = require('../service/imgur.js')
 const auth = require('../service/auth.js')
@@ -11,13 +12,13 @@ exports.uploadImage = function(res, authToken, body) {
         message: err
       })
     } else {
-      let imageInfo = {
-        image: body.image,
-        title: body.title,
-        album: user.albumID || '',
-        description: body.description
-      }
-      imgur.requestImgur('POST', '/image', 'auth-key', imageInfo, function(err, data) {
+      let imageInfo = new FormData()
+      imageInfo.append('description', body.description ? body.description : '')
+      imageInfo.append('image', body.image)
+      imageInfo.append('title', body.title ? body.title : '')
+      imageInfo.append('type', 'base64')
+
+      imgur.requestImgur('post', '/image', 'client-key', imageInfo, (err, data) => {
         if(err) {
           return res.json({
             success: false,
@@ -26,8 +27,7 @@ exports.uploadImage = function(res, authToken, body) {
         } else {
           return res.json({
             success: true,
-            image: data.data.link.replace(config.imgur.imageUrl, config.iwaa.url),
-            data
+            image: data.data.link.replace(config.imgur.imageUrl, config.iwaa.url)
           })
         }
       })

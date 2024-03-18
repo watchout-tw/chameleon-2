@@ -4,7 +4,7 @@ const request = require('request');
 exports.getWaaUrl = function(url, callback) {
   let requestConfig = {
     method: 'POST',
-    url: config.iwaa.createUrl,
+    url: config.iwaa.url,
     json: { "url": url }
   }
   request(requestConfig, function(err, resp, body) {

@@ -1,13 +1,12 @@
 const axios = require('axios')
-const config = require('../config/config.js')
 
 exports.requestImgur = function(method, url, authKey, data, callback) {
   let axiosConfig = {
     method,
     maxBodyLength: Infinity,
-    url: `${config.imgur.apiUrl}${url}`,
+    url: `${process.env.NUXT_ENV_IMGUR_API_URL}${url}`,
     headers: {
-      Authorization: config.imgur[authKey]
+      Authorization: process.env.NUXT_ENV_IMGUR_AUTH_KEY
     }
   }
 

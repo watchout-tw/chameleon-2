@@ -21,7 +21,8 @@
     "pretest": "npm run lint",
     "e2e-test": "export FUNCTIONS_CMD='gcloud functions' && sh test/updateFunctions.sh && BASE_URL=\"https://$GCP_REGION-$GCLOUD_PROJECT.cloudfunctions.net/\" ava -T 20s --verbose test/*.test.js",
     "test": "export FUNCTIONS_CMD='functions-emulator' && sh test/updateFunctions.sh && export BASE_URL=\"http://localhost:8010/$GCLOUD_PROJECT/$GCF_REGION\" && ava -T 20s --verbose -c 1 test/index.test.js test/*unit*test.js test/*integration*test.js",
-    "system-test": "export FUNCTIONS_CMD='functions-emulator' && sh test/updateFunctions.sh && export BASE_URL=\"http://localhost:8010/$GCLOUD_PROJECT/$GCF_REGION\" && ava -T 20s --verbose test/*.test.js"
+    "system-test": "export FUNCTIONS_CMD='functions-emulator' && sh test/updateFunctions.sh && export BASE_URL=\"http://localhost:8010/$GCLOUD_PROJECT/$GCF_REGION\" && ava -T 20s --verbose test/*.test.js",
+    "start": "npx functions-framework --target=image"
   },
   "dependencies": {
     "@google-cloud/debug-agent": "2.4.0",
@@ -31,8 +32,8 @@
     "request": "^2.87.0"
   },
   "devDependencies": {
+    "@google-cloud/functions-framework": "^3.3.0",
     "@google-cloud/nodejs-repo-tools": "2.2.5",
-    "@google-cloud/pubsub": "^0.17.0",
     "@google-cloud/storage": "^1.5.0",
     "ava": "0.25.0",
     "proxyquire": "2.0.1",

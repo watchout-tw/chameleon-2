@@ -27,6 +27,7 @@
   "dependencies": {
     "@google-cloud/debug-agent": "2.4.0",
     "axios": "^1.6.7",
+    "dotenv": "^16.4.5",
     "form-data": "^2.3.2",
     "jsonwebtoken": "^8.3.0",
     "request": "^2.87.0"

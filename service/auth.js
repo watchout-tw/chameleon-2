@@ -1,18 +1,19 @@
-const config = require('../config/config.js')
 const jwt = require('jsonwebtoken')
 const request = require('request')
+require('dotenv').config()
 
 const decodeOption = {
-  algorithms: config.auth.algorithms
+  algorithms: process.env.NUXT_ENV_AUTH_ALGORITHMS
 }
-const key = config.auth.key
+
+const key = process.env.NUXT_ENV_AUTH_KEY
 
 function getAdminKey(callback) {
-  request.get(config.auth.adminUrl, function(err, resp, body) {
+  request.get(process.env.NUXT_ENV_AUTH_ADMIN_URL, function(err, resp, body) {
     if(err) {
       callback(err)
     } else {
-      callback(null, JSON.parse(body)[config.auth.adminKeyName])
+      callback(null, JSON.parse(body)[process.env.NUXT_ENV_AUTH_ADMIN_KEY_NAME])
     }
   })
 }

@@ -1,5 +1,4 @@
 const FormData = require('form-data')
-const config = require('../config/config.js')
 const imgur = require('../service/imgur.js')
 const auth = require('../service/auth.js')
 
@@ -27,7 +26,7 @@ exports.uploadImage = function(res, authToken, body) {
         } else {
           return res.json({
             success: true,
-            image: data.data.link.replace(config.imgur.imageUrl, config.iwaa.url)
+            image: data.data.link.replace(process.env.NUXT_ENV_IMGUR_IMAGE_URL, process.env.NUXT_ENV_IWAA_CREATE_URL)
           })
         }
       })

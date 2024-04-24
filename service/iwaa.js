@@ -1,10 +1,10 @@
-const config = require('../config/config.js')
 const request = require('request');
+require('dotenv').config()
 
 exports.getWaaUrl = function(url, callback) {
   let requestConfig = {
     method: 'POST',
-    url: config.iwaa.url,
+    url: process.env.NUXT_ENV_IWAA_CREATE_URL,
     json: { "url": url }
   }
   request(requestConfig, function(err, resp, body) {

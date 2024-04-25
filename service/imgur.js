@@ -1,14 +1,8 @@
 const axios = require('axios')
-const config = require('../config/config.js')
 require('dotenv').config()
 
 exports.requestImgur = function(method, url, authKey, data, callback) {
-  let Authorization = ''
-  if ( authKey === 'auth-key') {
-    Authorization = process.env.NUXT_ENV_IMGUR_AUTH_KEY
-  } else {
-    Authorization = process.env.NUXT_ENV_IMGUR_CLIENT_KEY
-  }
+  const Authorization = authKey === 'auth-key' ? process.env.NUXT_ENV_IMGUR_AUTH_KEY : process.env.NUXT_ENV_IMGUR_CLIENT_KEY
   let axiosConfig = {
     method,
     maxBodyLength: Infinity,

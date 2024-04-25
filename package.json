@@ -12,7 +12,7 @@
     "node": ">=4.3.2"
   },
   "scripts": {
-    "deploy-image-dev": "gcloud functions deploy image-dev --runtime=nodejs12 --region=us-central1 --trigger-http",
+    "deploy-image-dev": "gcloud functions deploy image-dev --runtime=nodejs20 --region=us-central1 --trigger-http --project=i-waa-tw",
     "deploy-image": "gcloud functions deploy image --runtime=nodejs12 --region=us-central1 --trigger-http",
     "deploy-album-dev": "gcloud functions deploy album-dev --runtime=nodejs12 --region=us-central1 --trigger-http",
     "deploy-album": "gcloud functions deploy album --runtime=nodejs12 --region=us-central1 --trigger-http",

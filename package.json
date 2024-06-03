@@ -16,6 +16,7 @@
     "deploy-image": "gcloud functions deploy image --runtime=nodejs20 --region=us-central1 --trigger-http --project=i-waa-tw",
     "deploy-album-dev": "gcloud functions deploy album-dev --runtime=nodejs20 --region=us-central1 --trigger-http --project=i-waa-tw",
     "deploy-album": "gcloud functions deploy album --runtime=nodejs20 --region=us-central1 --trigger-http --project=i-waa-tw",
+    "deploy-iwaa-dev": "gcloud functions deploy iwaa-dev --gen2 --runtime=nodejs20 --region=us-central1 --trigger-http --project=i-waa-tw",
     "deploy-iwaa": "gcloud functions deploy iwaa --runtime=nodejs20 --region=us-central1 --trigger-http --project=i-waa-tw",
     "lint": "repo-tools lint",
     "pretest": "npm run lint",

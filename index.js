@@ -1,9 +1,9 @@
-const config = require('./config/config.js')
 const album = require('./controller/album.js')
 const image = require('./controller/image.js')
+require('dotenv').config()
 
 exports.album = (req, res) => {
-  const authToken = req.headers[config.auth.name];
+  const authToken = req.headers[process.env.NUXT_ENV_AUTH_NAME];
   switch(req.method) {
     case 'GET':
       if(!req.path) {
@@ -35,7 +35,7 @@ exports.album = (req, res) => {
 
 exports.image = (req, res) => {
   res.set('Access-Control-Allow-Origin', "*")
-  const authToken = req.headers[config.auth.name];
+  const authToken = req.headers[process.env.NUXT_ENV_AUTH_NAME];
   switch(req.method) {
     case 'OPTIONS': {
       // Send response to OPTIONS requests
@@ -61,7 +61,7 @@ exports.iwaa = (req, res) => {
     case 'GET':
       const imagesUrl = new RegExp('^\/[a-zA-Z0-9]+\.[a-zA-Z]+$');
       if(imagesUrl.test(req.path)) {
-        res.writeHead(301, { Location: `${config.imgur.imageUrl}${req.path}` });
+        res.writeHead(301, { Location: `${process.env.NUXT_ENV_IMGUR_IMAGE_URL}${req.path}` });
         res.end();
       } else {
         res.status(404).send('Not found');

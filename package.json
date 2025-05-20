@@ -12,27 +12,30 @@
     "node": ">=4.3.2"
   },
   "scripts": {
-    "deploy-image-dev": "gcloud functions deploy image-dev --runtime=nodejs12 --region=us-central1 --trigger-http",
-    "deploy-image": "gcloud functions deploy image --runtime=nodejs12 --region=us-central1 --trigger-http",
-    "deploy-album-dev": "gcloud functions deploy album-dev --runtime=nodejs12 --region=us-central1 --trigger-http",
-    "deploy-album": "gcloud functions deploy album --runtime=nodejs12 --region=us-central1 --trigger-http",
-    "deploy-iwaa": "gcloud functions deploy iwaa --runtime=nodejs12 --region=us-central1 --trigger-http",
+    "deploy-image-dev": "gcloud functions deploy image-dev --runtime=nodejs20 --region=us-central1 --trigger-http --project=i-waa-tw",
+    "deploy-image": "gcloud functions deploy image --runtime=nodejs20 --region=us-central1 --trigger-http --project=i-waa-tw",
+    "deploy-album-dev": "gcloud functions deploy album-dev --runtime=nodejs20 --region=us-central1 --trigger-http --project=i-waa-tw",
+    "deploy-album": "gcloud functions deploy album --runtime=nodejs20 --region=us-central1 --trigger-http --project=i-waa-tw",
+    "deploy-iwaa-dev": "gcloud functions deploy iwaa-dev --gen2 --runtime=nodejs20 --region=us-central1 --trigger-http --project=i-waa-tw",
+    "deploy-iwaa": "gcloud functions deploy iwaa --runtime=nodejs20 --region=us-central1 --trigger-http --project=i-waa-tw",
     "lint": "repo-tools lint",
     "pretest": "npm run lint",
     "e2e-test": "export FUNCTIONS_CMD='gcloud functions' && sh test/updateFunctions.sh && BASE_URL=\"https://$GCP_REGION-$GCLOUD_PROJECT.cloudfunctions.net/\" ava -T 20s --verbose test/*.test.js",
     "test": "export FUNCTIONS_CMD='functions-emulator' && sh test/updateFunctions.sh && export BASE_URL=\"http://localhost:8010/$GCLOUD_PROJECT/$GCF_REGION\" && ava -T 20s --verbose -c 1 test/index.test.js test/*unit*test.js test/*integration*test.js",
-    "system-test": "export FUNCTIONS_CMD='functions-emulator' && sh test/updateFunctions.sh && export BASE_URL=\"http://localhost:8010/$GCLOUD_PROJECT/$GCF_REGION\" && ava -T 20s --verbose test/*.test.js"
+    "system-test": "export FUNCTIONS_CMD='functions-emulator' && sh test/updateFunctions.sh && export BASE_URL=\"http://localhost:8010/$GCLOUD_PROJECT/$GCF_REGION\" && ava -T 20s --verbose test/*.test.js",
+    "start": "npx functions-framework --target=image"
   },
   "dependencies": {
     "@google-cloud/debug-agent": "2.4.0",
     "axios": "^1.6.7",
+    "dotenv": "^16.4.5",
     "form-data": "^2.3.2",
     "jsonwebtoken": "^8.3.0",
     "request": "^2.87.0"
   },
   "devDependencies": {
+    "@google-cloud/functions-framework": "^3.3.0",
     "@google-cloud/nodejs-repo-tools": "2.2.5",
-    "@google-cloud/pubsub": "^0.17.0",
     "@google-cloud/storage": "^1.5.0",
     "ava": "0.25.0",
     "proxyquire": "2.0.1",

@@ -14,3 +14,12 @@
 .gitignore
 
 node_modules
+
+.idea
+
+.env
+
+.nvmrc
+
+config/*config.js
+package-lock.json

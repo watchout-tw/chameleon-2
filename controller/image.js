@@ -22,11 +22,15 @@ exports.uploadImage = function(res, authToken, body) {
     imgur.requestImgur('post', '/image', 'client-key', imageInfo, (err, data) => {
       if(err) {
         const { status, data } = err.response
-        console.error('Imgur API request error:', data)
+        let message = data || 'Image upload to Imgur failed'
+        if(status == 503) {
+          message = 'Imgur 服務暫停中，請稍後再試，如一小時後仍有問題，請洽科技部'
+        }
         console.error(err.status)
+        console.error('Imgur API request error:', data)
         return res.status(status).json({
           success: false,
-          message: data || 'Image upload to Imgur failed'
+          message: message
         })
       } else {
         // 即使 err 為 null，也檢查 Imgur 回傳的 data 是否真的成功
